@@ -18,11 +18,13 @@ const users = require('./routes/users');
 
 // Passport Config
 require('./config/passport')(passport);
+// DB Config
+const db = require('./config/database');
 
 //Map global promise - get rid of warning
 mongoose.Promise = global.Promise;
 // Connect to mongoose
-mongoose.connect('mongodb://localhost/vidjot-dev', {
+mongoose.connect(db.mongoURI, {
   useMongoClient: true
 })
   .then(() => console.log(`${ chalk.yellow('MongoDB Connected...')}`))
@@ -83,7 +85,7 @@ app.get('/about', (req, res) => {
 app.use('/ideas', ideas);
 app.use('/users', users);
 
-const port = 3000;
+const port = process.env.PORT || 3000;
 
 app.listen(port, () => {
   console.log(`${ chalk.blue('Server running on port')} ${ chalk.red(port) }`);
