@@ -48,7 +48,7 @@ app.use(methodOverride('_method'));
 
 // Express session middleware
 app.use(session({
-  secret,
+  secret: 'mongoose',
   resave: true,
   saveUninitialized: true
 }));
